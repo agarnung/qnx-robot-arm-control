@@ -1,0 +1,8 @@
+images/*
+!images/.gitkeep
+dist/
+*.csv
+*.img
+*.qcow2
+*.ifs
+__pycache__/

@@ -1,0 +1,11 @@
+{
+  "name": "example fixture: four joint targets",
+  "note": "Synthetic joint-target sequence for replay testing. Replace it with a sequence recorded from the upstream vision pipeline; this file is not MediaPipe output.",
+  "keyframes": [
+    {"t": 0.0, "joints": [0.0, -1.2, 0.9, -1.4, 0.4, 0.1]},
+    {"t": 1.5, "joints": [0.55, -1.05, 1.15, -1.20, 0.65, 0.10]},
+    {"t": 3.0, "joints": [-0.45, -1.35, 0.70, -1.60, 0.20, 0.10]},
+    {"t": 4.5, "joints": [0.30, -0.85, 1.25, -1.00, 0.80, 0.10]},
+    {"t": 6.0, "joints": [0.0, -1.2, 0.9, -1.4, 0.4, 0.1]}
+  ]
+}

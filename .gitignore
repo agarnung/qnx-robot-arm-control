@@ -1,0 +1,33 @@
+build/
+dist/
+images/
+*.csv
+!results/*.csv
+!evidence/*.csv
+*.pid
+*.img
+*.qcow2
+*.ifs
+__pycache__/
+*.pyc
+.env
+.venv/
+.DS_Store
+qnx800/
+*.lic
+*.license
+license*.txt
+*.qnx
+*.run
+qnx-setup*
+*.vmdk
+*.bin
+
+# Local video work (not part of the submission)
+/video-edit/
+/evidence/clips/
+!evidence/clips/README.md
+/evidence/*.mp4
+
+# Internal review notes (not needed by judges)
+/QNX-SUBMISSION-REVIEW.md

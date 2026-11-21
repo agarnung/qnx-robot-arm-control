@@ -1,0 +1,123 @@
+=== Linux/POSIX baseline — host: Linux 7.0.0-42-generic ===
+
+@@CLIP:01-linux-build@@
+
+$ qcc --version
+Toolchain:  gcc	Version:  12.2.0	
+
+Toolchain:  12.2.0	Version:  gcc_ntox86_64
+	
+
+
+$ file qnx-emulator/dist/control_core.qnx
+~/visual_control_robot-qnx/qnx-emulator/dist/control_core.qnx: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.2, BuildID[md5/uuid]=59c6181d13ed469c100d9c800d7c368c, with debug_info, not stripped
+
+$ make clean
+rm -rf build
+
+$ make
+mkdir -p build
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/ipc_posix.c -o build/ipc_posix.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/robot_link.c -o build/robot_link.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/latency_log.c -o build/latency_log.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/clock_util.c -o build/clock_util.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/urscript.c -o build/urscript.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/main.c -o build/main.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o build/main.o -o build/control_core -lm
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc tools/bench_client.c build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o -o build/bench_client -lm
+
+$ file build/control_core build/bench_client
+build/control_core: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=6e5c8b9113e4e1a1df8b180e581ae715d9242ccc, for GNU/Linux 3.2.0, with debug_info, not stripped
+build/bench_client: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=2b8204efb65b0df90fd8b7448660565bb2e2ac39, for GNU/Linux 3.2.0, with debug_info, not stripped
+
+@@CLIP:02-linux-tests@@
+
+$ make test
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc tests/test_telemetry_parse.c build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o -o build/test_telemetry_parse -lm
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc tests/test_protocol_layout.c -o build/test_protocol_layout -lm
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc tests/test_urscript.c build/urscript.o -o build/test_urscript -lm
+./build/test_telemetry_parse
+OK: test_telemetry_parse (6 joints, robot_mode, safety_mode, short+wrong-type rejection)
+./build/test_protocol_layout
+OK: test_protocol_layout (cmd=108 status=108 bytes)
+./build/test_urscript
+OK: test_urscript (movej, servoj, home probe, small buffer)
+cd python_client && python3 -c "import control_client; print('OK: control_client.py struct layout asserts passed')"
+OK: control_client.py struct layout asserts passed
+
+@@CLIP:03-linux-hardening@@
+
+$ make sanitize
+make clean
+make[1]: se entra en el directorio '~/visual_control_robot-qnx/control_core'
+rm -rf build
+make[1]: se sale del directorio '~/visual_control_robot-qnx/control_core'
+make CFLAGS="-std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer" LDLIBS="-lm -fsanitize=address,undefined" test
+make[1]: se entra en el directorio '~/visual_control_robot-qnx/control_core'
+mkdir -p build
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc -c src/ipc_posix.c -o build/ipc_posix.o
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc -c src/robot_link.c -o build/robot_link.o
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc -c src/latency_log.c -o build/latency_log.o
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc -c src/clock_util.c -o build/clock_util.o
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc -c src/urscript.c -o build/urscript.o
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc tests/test_telemetry_parse.c build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o -o build/test_telemetry_parse -lm -fsanitize=address,undefined
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc tests/test_protocol_layout.c -o build/test_protocol_layout -lm -fsanitize=address,undefined
+cc -std=c11 -Wall -Wextra -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Iinclude -Isrc tests/test_urscript.c build/urscript.o -o build/test_urscript -lm -fsanitize=address,undefined
+./build/test_telemetry_parse
+OK: test_telemetry_parse (6 joints, robot_mode, safety_mode, short+wrong-type rejection)
+./build/test_protocol_layout
+OK: test_protocol_layout (cmd=108 status=108 bytes)
+./build/test_urscript
+OK: test_urscript (movej, servoj, home probe, small buffer)
+cd python_client && python3 -c "import control_client; print('OK: control_client.py struct layout asserts passed')"
+OK: control_client.py struct layout asserts passed
+make[1]: se sale del directorio '~/visual_control_robot-qnx/control_core'
+
+$ make analyze
+cc -std=c11 -Wall -Wextra -fanalyzer -Iinclude -Isrc -c src/main.c -o build/main.analyzer.o
+cc -std=c11 -Wall -Wextra -fanalyzer -Iinclude -Isrc -c src/robot_link.c -o build/robot_link.analyzer.o
+cc -std=c11 -Wall -Wextra -fanalyzer -Iinclude -Isrc -c src/urscript.c -o build/urscript.analyzer.o
+
+@@CLIP:04-linux-bench@@
+
+$ make clean
+rm -rf build
+
+$ make
+mkdir -p build
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/ipc_posix.c -o build/ipc_posix.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/robot_link.c -o build/robot_link.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/latency_log.c -o build/latency_log.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/clock_util.c -o build/clock_util.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/urscript.c -o build/urscript.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc -c src/main.c -o build/main.o
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o build/main.o -o build/control_core -lm
+cc -std=c11 -Wall -Wextra -Wpedantic -O2 -g -Iinclude -Isrc tools/bench_client.c build/ipc_posix.o build/robot_link.o build/latency_log.o build/clock_util.o build/urscript.o -o build/bench_client -lm
+
+$ ./build/control_core --dry-run --endpoint /tmp/vcr_rec.sock --log ~/visual_control_robot-qnx/evidence/linux_core_replay.csv &
+[control_core] listening on /tmp/vcr_rec.sock (IPC backend selected at build time — see include/ipc_transport.h)
+[control_core] --dry-run: no robot socket will be opened
+[control_core] ready, waiting for the vision process...
+
+$ ./build/bench_client --endpoint /tmp/vcr_rec.sock --rate-hz 20 --count 500 --log ~/visual_control_robot-qnx/evidence/linux_bench_replay.csv
+[bench_client] sending 500 synthetic commands at 20.0 Hz to /tmp/vcr_rec.sock
+[bench_client (end-to-end RTT)] n=500  min=0.096ms  mean=0.257ms  max=0.559ms  stddev(jitter)=0.065ms
+[control_core] client disconnected, waiting for a new one
+[control_core] n=500  min=0.036ms  mean=0.131ms  max=0.272ms  stddev(jitter)=0.048ms
+
+@@CLIP:05-linux-compare@@
+
+$ python3 compare_results.py
+== benchmark (end-to-end RTT, bench_client) ==
+       linux_bench  n=  500  min=0.042  mean=0.187  med=0.187  p99=0.408  max=0.550  std=0.082 ms
+         qnx_bench  n= 2000  min=0.060  mean=0.181  med=0.158  p99=0.238  max=20.235  std=0.659 ms
+
+Diferencia QNX - Linux (ms):
+  mean     -0.006
+  median   -0.029
+  p99      -0.170
+  max      +19.686
+  stddev   +0.576
+[i] matplotlib no disponible; no se genera la gráfica
+
+=== fin: 2026-11-20T00:04:24Z ===

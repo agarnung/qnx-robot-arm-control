@@ -1,0 +1,404 @@
+[i] compartiendo ~/visual_control_robot-qnx/qnx-emulator/dist como disco FAT (vvfat)
+[i] QNX QSTI: kernel=/opt/qnx800/images/qemu/qemu/output/ifs.bin
+[i] disco:    /opt/qnx800/images/qemu/qemu/output/disk-qemu.vmdk
+[i] qemu-system-x86_64 -enable-kvm -cpu host -m 2048 -smp 4
+[i] red=user (host 10.0.2.2 en user-mode; ssh host:2222)
+[i] consola serie en esta terminal (Ctrl-A X para salir de QEMU)
+
+c[?7l[2J[0mSeaBIOS (version 1.17.0-debian-1.17.0-1ubuntu1)
+
+
+
+iPXE (https://ipxe.org) 00:02.0 C000 PCI2.10 PnP PMM+7EFC7BA0+7EF07BA0 C000
+
+Press Ctrl-B to configure iPXE (PCI 00:02.0)...
+                                                                               
+
+
+
+Booting from ROM..
+
+non UEFI or UEFI+CSM boot
+
+ACPI table not found (0x4746434d)
+
+overriding mask for controller 2, vector_base 0
+
+Startup complete
+
+Unable to start "uname" (2)
+
+slog2_api: cannot connect to slogger2 server...errno=No such file or directory
+
+qh: context: default:all=prefix/loc/~tid,~slog=notice,slog2=info,stderr=warning,~stdout=notice-notice
+
+qh: context: qh:slog2=info,stderr=warning
+
+qh: context: slm:slog2=info,stderr=warning
+
+qh: slogger2 does not appear to be running.  Registration will be attempted when it is running.
+
+qh: Waiting for /dev/slog2
+
+qh: slog2 config: 'high:pages=4,min_sev=warning,low:pages=8,default:pages=1' (defaults)
+
+slm: [COMMAND] startup 'all'
+
+slm: Component 'slog2': Mark active
+
+slm: Set state of component 'slog2' to 'starting'
+
+slm: Component 'pci-server': Mark active
+
+slm: Component 'pci-server-patchup': Mark active
+
+slm: Component 'devb': Mark active
+
+slm: Component 'root-fs': Mark active
+
+slm: Component 'random': Mark active
+
+slm: Component 'fsevmgr': Mark active
+
+slm: Component 'devc': Mark active
+
+slm: Component 'pipe': Mark active
+
+slm: Component 'dumper': Mark active
+
+slm: Component 'devc-pty': Mark active
+
+slm: Component 'io-sock': Mark active
+
+slm: Component 'network-init': Mark active
+
+slm: Component 'ssh': Mark active
+
+slm: Component 'qconn': Mark active
+
+slm: Component 'console': Mark active
+
+slm: Component 'mqueue': Mark active
+
+slm: Component 'post_start': Mark active
+
+slm: Component 'iousb': Mark active
+
+slm: Component 'set-host': Mark active
+
+slm: Component 'ca-trust-init': Mark active
+
+slm: Component 'pam': Mark active
+
+slm: Component 'apk_start': Mark active
+
+slm: [START] Component 'slog2'
+
+slm: Component 'slog2': Spawned process with pid 20483
+
+slm: Set state of component 'slog2' to 'waiting'
+
+Path=0 - Intel 82371SB
+
+ target=0 lun=0     Direct-Access(0) -          QEMU HARDDISK    Rev: 2.5+
+
+ target=1 lun=0     Direct-Access(0) -          QEMU HARDDISK    Rev: 2.5+
+
+Path=1 - Intel 82371SB
+
+ target=0 lun=0            CD-ROM(5) - QEMU     QEMU DVD-ROM     Rev: 2.5+
+
+---> Mounting file systems
+
+---> Starting io-hid
+
+Not updating in init mode when /etc/ca-certificates/extracted already exists.
+
+---> Starting Screen...
+
+    5.96s real     0.01s user     0.00s system
+
+Unable to access /dev/screen/
+
+   15.01s real     0.00s user     0.00s system
+
+---> waitfor /dev/screen (full_startup.sh) FAILED!
+
+---> /dev/screen check failed! NOT STARTING Full Screen Window Manager!!! ...
+
+---> calling first_startup_checks.sh
+
+Fontconfig warning: using without calling FcInit()
+
+screen_create_context: No such file or directory
+
+---> /dev/screen check failed! NOT STARTING Demolauncher!!! ...
+
+---> Configuring PAM
+
+login: root
+root
+
+Password:root
+
+
+
+
+
+
+ ██████╗           ██╗  ██╗
+
+██╔═══██╗          ╚██╗██╔╝  
+
+██║   ██║███╗   ██╗ ╚███╔╝                      Welcome to QNX 8.0 Non-Commercial!
+
+██║▄▄ ██║████╗  ██║ ██╔██╗   
+
+╚██████╔╝██╔██╗ ██║██╔╝ ██╗  
+
+ ╚══▀▀═╝ ██║╚██╗██║╚═╝  ╚═╝
+
+         ██║ ╚████║ ▄▖           ▌       
+
+         ╚═╝  ╚═══╝ ▙▖▌▌█▌▛▘▌▌▌▌▌▛▌█▌▛▘█▌
+
+                    ▙▖▚▘▙▖▌ ▙▌▚▚▘▌▌▙▖▌ ▙▖
+
+                            ▄▌           
+
+
+
+This QNX 8 target is now ready for your QNX applications. There are
+
+some sample applications included here to help you get started with
+
+development. Find the source code for most of them at gitlab.com/qnx.
+
+
+
+Here's how to run some of the bundled samples:
+
+
+
+|-------------------------------|----------------------------------------------------------|
+
+| $ gles2-gears                 | Displays hardware-rendered content using OpenGL ES 2.x.  |
+
+| $ gles2-maze                  | Shows how to use texture, vertex, and fragment shaders.  |
+
+| $ camera_example3_viewfinder  | Displays a simulated camera signal or live camera feed.  |
+
+| $ st                          | The default terminal. Run it to open a new instance.     |
+
+|-------------------------------|----------------------------------------------------------|
+
+
+
+(You can use ALT-TAB to switch between windows.)
+
+
+
+The apk package manager is now available to further customize your target software.
+
+
+
+To use, run:
+
+
+
+# sudo apk update
+
+
+
+to sync with the configured repositories, and then run:
+
+
+
+# apk list --available
+
+
+
+to see the list of available packages on the repositories, and then run:
+
+
+
+# sudo apk add [PACKAGE]
+
+
+
+, as required, to add more software.
+
+
+
+Note: The VNC server is now run by default.  It is setup with a default password=qnxuser.
+
+It is recommended you change the default password.  To change the password run:
+
+
+
+# sudo vncserv -password=<new-password>
+
+
+
+Have questions? Find the community in Discord at https://discord.gg/Jj4EkkrFTT,
+
+on Reddit at https://reddit.com/r/QNX, or log an issue at https://gitlab.com/qnx.
+
+[?2004h[root@qnxqemu ~]# echo "@@CLIP:07-qnx-login@@"
+echo "@@CLIP:07-qnx-login@@"
+
+[?2004l
+@@CLIP:07-qnx-login@@
+
+[?2004h[root@qnxqemu ~]# echo "@@CLIP:08-qnx-version@@"
+echo "@@CLIP:08-qnx-version@@"
+
+[?2004l
+@@CLIP:08-qnx-version@@
+
+[?2004h[root@qnxqemu ~]# uname -a
+uname -a
+
+[?2004l
+QNX qnxqemu 8.0.0 2026/06/05-16:26:03EDT x86pc x86_64
+
+[?2004h[root@qnxqemu ~]# pidin info
+pidin info
+
+[?2004l
+CPU:X86_64 Release:8.0.0  FreeMem:1848MB/2047MB BootTime:Nov 20 00:05:41 UTC 2026
+
+Processes: 26, Threads: 143
+
+Processor1: 787118 Intel 686 F6M198S2 3071MHz FPU 
+
+Processor2: 787118 Intel 686 F6M198S2 3071MHz FPU 
+
+Processor3: 787118 Intel 686 F6M198S2 3071MHz FPU 
+
+Processor4: 787118 Intel 686 F6M198S2 3071MHz FPU 
+
+[?2004h[root@qnxqemu ~]# ls /dev/hd*
+ls /dev/hd*
+
+[?2004l
+[1;33m/dev/hd0[0m  [1;33m/dev/hd0t177[0m  [1;33m/dev/hd0t178[0m  [1;33m/dev/hd0t179[0m  [1;33m/dev/hd1[0m  [1;33m/dev/hd1t6[0m
+
+[?2004h[root@qnxqemu ~]# echo "@@CLIP:09-qnx-mount@@"
+echo "@@CLIP:09-qnx-mount@@"
+
+[?2004l
+@@CLIP:09-qnx-mount@@
+
+[?2004h[root@qnxqemu ~]# mkdir -p /data/share
+mkdir -p /data/share
+
+[?2004l
+[?2004h[root@qnxqemu ~]# mount -t dos /dev/hd1t6 /data/share
+mount -t dos /dev/hd1t6 /data/share
+
+[?2004l
+[?2004h[root@qnxqemu ~]# mkdir -p /tmp/share
+mkdir -p /tmp/share
+
+[?2004l
+[?2004h[root@qnxqemu ~]# cp /data/share/control_core.qnx /tmp/share/
+cp /data/share/control_core.qnx /tmp/share/
+
+[?2004l
+[?2004h[root@qnxqemu ~]# cp /data/share/bench_client.qnx /tmp/share/
+cp /data/share/bench_client.qnx /tmp/share/
+
+[?2004l
+[?2004h[root@qnxqemu ~]# cp /data/share/bench-inside-qnx.sh /tmp/share/
+cp /data/share/bench-inside-qnx.sh /tmp/share/
+
+[?2004l
+[?2004h[root@qnxqemu ~]# cd /tmp/share
+cd /tmp/share
+
+[?2004l
+[?2004h[root@qnxqemu /tmp/share]# chmod +x *.qnx
+chmod +x *.qnx
+
+[?2004l
+[?2004h[root@qnxqemu /tmp/share]# echo "@@CLIP:10-qnx-bench@@"
+echo "@@CLIP:10-qnx-bench@@"
+
+[?2004l
+@@CLIP:10-qnx-bench@@
+
+[?2004h[root@qnxqemu /tmp/share]# COUNT=500 sh bench-inside-qnx.sh
+COUNT=500 sh bench-inside-qnx.sh
+
+[?2004l
+[qnx] controlando: /tmp/vcr_control.sock  count=500 rate=20Hz
+
+[control_core] listening on /tmp/vcr_control.sock (IPC backend selected at build time — see include/ipc_transport.h)
+
+[control_core] --dry-run: no robot socket will be opened
+
+[control_core] ready, waiting for the vision process...
+
+[bench_client] sending 500 synthetic commands at 20.0 Hz to /tmp/vcr_control.sock
+
+Unable to access /dev/screen/
+
+   15.01s real     0.01s user     0.00s system
+
+---> waitfor /dev/screen/ failed.
+
+/system/etc/startup/post_startup.sh[62]: cannot create /dev/screen/command: No such file or directory
+
+---> Error Screen not available.  Sensor framework will not be started.
+
+
+
+To exit QEMU, type <ctrl>a x
+
+
+
+[?7hProcess count:32
+
+[bench_client (end-to-end RTT)] n=500  min=0.081ms  mean=0.164ms  max=0.938ms  stddev(jitter)=0.045ms
+
+[control_core] n=500  min=0.014ms  mean=0.028ms  max=0.050ms  stddev(jitter)=0.004ms
+
+
+
+[qnx] resumen (bench):
+
+492,49.155211571,49.155241118,49.155242009,0.000029547,0.000000891,0.000169748,1054198
+
+493,49.206104589,49.206132341,49.206133399,0.000027752,0.000001058,0.000154430,891223
+
+494,49.257269283,49.257302538,49.257303612,0.000033255,0.000001074,0.000251549,1170196
+
+495,49.308418498,49.308444142,49.308445189,0.000025644,0.000001047,0.000163345,1141604
+
+496,49.359245179,49.359272553,49.359273483,0.000027374,0.000000930,0.000155717,828410
+
+497,49.410106158,49.410132079,49.410133041,0.000025921,0.000000962,0.000152771,859526
+
+498,49.461183863,49.461216995,49.461218169,0.000033132,0.000001174,0.000190655,1084916
+
+499,49.512256193,49.512289732,49.512290576,0.000033539,0.000000844,0.000201661,1072736
+
+[qnx] core: core_qnx.csv | bench: bench_qnx.csv
+
+[?2004h[root@qnxqemu /tmp/share]# echo "@@CLIP:11-qnx-csv@@"
+echo "@@CLIP:11-qnx-csv@@"
+
+[?2004l
+@@CLIP:11-qnx-csv@@
+
+[?2004h[root@qnxqemu /tmp/share]# ls -l *.csv
+ls -l *.csv
+
+[?2004l
+-rw-r--r--  1 root root 43228 2026-11-20 00:06 bench_qnx.csv
+
+-rw-r--r--  1 root root 43228 2026-11-20 00:06 core_qnx.csv
+
+[?2004h[root@qnxqemu /tmp/share]# xQEMU: Terminated
+
