@@ -180,9 +180,10 @@ Detailed steps: [`qnx-emulator/download-qnx.md`](qnx-emulator/download-qnx.md).
 
 ```bash
 # 0) install QNX SDP 8.0 + package com.qnx.qnx800.quickstart.qemu from QSC
-#    then: cd ~/qnx800/images/qemu && ./unpack_qemu_image.sh
+#    then: (cd ~/qnx800/images/qemu && ./unpack_qemu_image.sh)
 
-# 1) cross-compile with qcc
+# 1) cross-compile with qcc (from the repository root)
+cd ..
 export QNX_ENV=~/qnx800/qnxsdp-env.sh
 ./qnx-emulator/build-control-core.sh          # uses QNX_ARCH=x86_64 by default
 
